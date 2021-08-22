@@ -1,0 +1,227 @@
+﻿
+@using Task4_Hr.Models
+@using System.Data;
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous"></script>
+<div class="row my-4 text-right ">
+    <div class="col mb-5">
+        <div class="card">
+
+            <div class="card-body mt-2">
+
+                <form method="post" enctype="multipart/form-data" class="">
+
+                    <div class="row mx-5 my-2">
+                        <label class="form-control-label col-1 mt-2">رقم البطاقة  :</label>
+                        <div class="col-3">
+                            <input name="ID" class="form-control" />
+                        </div>
+
+                        <label class="form-control-label col-1 mt-2">اسم الموظف :</label>
+                        <div class="col">
+                            <input name="EmployeeName" class="form-control" />
+                        </div>
+
+                        <label class="form-control-label col-1 mt-2">الراتب الاساسي :</label>
+                        <div class="col">
+                            <input name="BasicSalary" class="form-control" />
+                        </div>
+
+                    </div>
+                    @{
+                        var gen = "";
+                        var g = new Home().GetData("C_GENDERS_TB");
+                        foreach (var item in g.Rows)
+                        {
+                            var row = item as DataRow;
+                            gen += "<option value='" + row["GENDER_ID"] + "'>" + row["GENDER_NAME"] + "</option>";
+                        }
+
+                    }
+                    <div class="row mx-5 my-2">
+                        <label class="form-control-label col-1 mt-2">الجنس  :</label>
+                        <div class="col">
+                            <select name="Gender" class="form-control">
+                                <option></option>
+                                @Html.Raw(gen)
+                            </select>
+                        </div>
+                        @{
+                            var MStatus = "";
+                            var Mst = new Home().GetData("C_MARITAL_STATUS_TB");
+                            foreach (var item in Mst.Rows)
+                            {
+                                var row = item as DataRow;
+                                MStatus += "<option value='" + row["MARITAL_STATUS_ID"] + "'>" + row["MARITAL_STATUS"] + "</option>";
+                            }
+                        }
+                        <label class="form-control-label col-1 mt-2">الحالة الاجتماعية :</label>
+                        <div class="col">
+                            <select name="Status" class="form-control">
+                                <option></option>
+                                @Html.Raw(MStatus)
+                            </select>
+                        </div>
+
+                    </div>
+
+                    <div class="row mx-5 my-2">
+                        <label class="form-control-label col-1 mt-2"> تاريخ الميلاد : </label>
+                        <div class="col">
+                            <input name="DateBirth" class="form-control">
+                        </div>
+
+                        <label class="form-control-label col-1 mt-2"> تاريخ التعيين : </label>
+                        <div class="col">
+                            <input name="DateHiring" class="form-control">
+                        </div>
+                        @{
+                            var html = "";
+                            var c = new Home().GetData("C_COUNTRIES_TB");
+                            foreach (var item in c.Rows)
+                            {
+                                var row = item as DataRow;
+                                html += "<option value='" + row["COUNTRY_ID"] + "'>" + row["COUNTRY_NAME"] + "</option>";
+                            }
+
+                        }
+                    </div>
+                    <div class="row mx-5 my-2">
+                        <label class="form-control-label col-1 mt-2">الدولة    :</label>
+                        <div class="col">
+                            <select name="Country" class="form-control">
+                                <option></option>
+                                @Html.Raw(html)
+                            </select>
+                        </div>
+                        @{
+                            var State = "";
+                            var s = new Home().GetData("C_STATES_TB");
+                            foreach (var item in s.Rows)
+                            {
+                                var row = item as DataRow;
+                                State += "<option value='" + row["STATE_ID"] + "'>" + row["STATE_NAME"] + "</option>";
+                            }
+
+                        }
+                        <label class="form-control-label col-1 mt-2">المحافظة    :</label>
+                        <div class="col">
+                            <select name="State" class="form-control">
+                                <option></option>
+                                @Html.Raw(State)
+                            </select>
+                        </div>
+
+                    </div>
+                    @{
+                        var city = "";
+                        var ci = new Home().GetData("C_CITIES_TB");
+                        foreach (var item in ci.Rows)
+                        {
+                            var row = item as DataRow;
+                            city += "<option value='" + row["CITY_ID"] + "'>" + row["CITY_NAME"] + "</option>";
+                        }
+
+                    }
+                    <div class="row mx-5 my-2">
+                        <label class="form-control-label col-1 mt-2">المدينة     :</label>
+                        <div class="col">
+                            <select name="City" class="form-control">
+                                <option></option>
+                                @Html.Raw(city)
+                            </select>
+                        </div>
+
+                        <label class="form-control-label col-1 mt-2">العنوان    :</label>
+                        <div class="col">
+                            <input name="Address" class="form-control" />
+                        </div>
+
+                    </div>
+
+
+                    <div class="row mx-5 my-2">
+                        <label class="form-control-label col-1 mt-2">تلفون    :</label>
+                        <div class="col">
+                            <input name="Tele" class="form-control" />
+                        </div>
+
+                        <label class="form-control-label col-1 mt-2">خلوي  :</label>
+                        <div class="col">
+                            <input name="Phone" class="form-control" />
+                        </div>
+
+                    </div>
+
+                    <div class="row mx-5 my-2">
+                        <label class="form-control-label col-1 mt-2">بريد إلكتروني     :</label>
+                        <div class="col">
+                            <input name="Email" class="form-control" />
+                        </div>
+                        @{
+                            var job = "";
+                            var j = new Home().GetData("C_JOB_TITLES_TB");
+                            foreach (var item in j.Rows)
+                            {
+                                var row = item as DataRow;
+                                job += "<option value='" + row["JOB_TITLE_ID"] + "'>" + row["JOB_TITLE"] + "</option>";
+                            }
+
+                        }
+                        <label class="form-control-label col-1 mt-2">المسمى الوظيفي     :</label>
+                        <div class="col">
+                            <select name="jobTitle" class="form-control">
+                                <option></option>
+                                @Html.Raw(job)
+                            </select>
+                        </div>
+
+                    </div>
+                    @{
+                        var dep = "";
+                        var d = new Home().GetData("C_DEPARTMENTS_TB");
+                        foreach (var item in d.Rows)
+                        {
+                            var row = item as DataRow;
+                            dep += "<option value='" + row["DEPARTMENT_ID"] + "'>" + row["DEPARTMENT_NAME"] + "</option>";
+                        }
+
+                    }
+                <div class="row mx-5 my-2">
+                    <label class="form-control-label col-1 mt-2">الدائرة     :</label>
+                    <div class="col">
+                        <select name="Department" class="form-control">
+                            <option></option>
+                            @Html.Raw(dep)
+                        </select>
+                    </div>
+                    @{
+                        var Status = "";
+                        var st = new Home().GetData("C_EMP_STATUS_TB");
+                        foreach (var item in st.Rows)
+                        {
+                            var row = item as DataRow;
+                            Status += "<option value='" + row["EMP_STATUS_ID"] + "'>" + row["EMP_STATUS"] + "</option>";
+                        }
+
+                    }
+                    <label class="form-control-label col-1 mt-2">حالة الموظف    :</label>
+                    <div class="col">
+                        <select name="EmployeeStatus" class="form-control">
+                            <option></option>
+                            @Html.Raw(Status)
+                        </select>
+                    </div>
+
+                </div>
+
+                    <div class="form-group text-center my-3">
+                        <button id="btnForm" type="submit" class="btn text-white btn-dark">اضافة </button>
+
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
